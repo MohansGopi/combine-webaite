@@ -1,21 +1,745 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <title>Combine – Website Builder SaaS</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Combine - Build Websites Without Code</title>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+:root {
+  --primary-color: #0ea5e9;
+  --secondary-color: #0284c7;
+  --accent-color: #38bdf8;
+  --dark-bg: #0c4a6e;
+  --light-bg: #f0f9ff;
+}
+
+body {
+  margin: 0;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Navbar */
+.navbar {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%) !important;
+  padding: 1.5rem 0;
+  box-shadow: 0 4px 20px rgba(14, 165, 233, 0.3);
+  border-bottom: 1px solid rgba(56, 189, 248, 0.3);
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+.navbar-brand {
+  color: white !important;
+  font-size: 1.8rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+}
+
+.nav-link {
+  color: rgba(255,255,255,0.9) !important;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  padding: 0.5rem 1rem !important;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  color: white !important;
+  background: rgba(255,255,255,0.1);
+  transform: translateY(-2px);
+}
+
+.btn-account {
+  background: white !important;
+  color: #0ea5e9 !important;
+  border: 2px solid white !important;
+  font-weight: 600;
+  padding: 0.6rem 1.5rem !important;
+}
+
+.btn-account:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 5px 15px rgba(255,255,255,0.3);
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  padding: 180px 0 100px;
+  margin-top: 76px;
+  position: relative;
+  overflow: hidden;
+}
+
+.hero-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: url('data:image/svg+xml,<svg width="100" height="100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="2" fill="rgba(255,255,255,0.1)"/></svg>');
+  opacity: 0.3;
+}
+
+.hero-content {
+  position: relative;
+  z-index: 1;
+}
+
+.hero-title {
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s ease;
+}
+
+.hero-subtitle {
+  font-size: 1.3rem;
+  opacity: 0.95;
+  margin-bottom: 2rem;
+  animation: fadeInUp 1s ease;
+}
+
+.btn-primary-custom {
+  background: white;
+  color: #0ea5e9;
+  border: 2px solid white;
+  padding: 1rem 3rem;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 50px;
+  transition: all 0.3s ease;
+  box-shadow: 0 10px 30px rgba(255,255,255,0.2);
+  text-decoration: none;
+  display: inline-block;
+}
+
+.btn-primary-custom:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(255,255,255,0.3);
+  background: #f0f9ff;
+  color: #0284c7;
+}
+
+.hero-image {
+  animation: float 3s ease-in-out infinite;
+  max-width: 100%;
+  height: auto;
+}
+
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-20px); }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Stats Section */
+.stats-section {
+  background: var(--light-bg);
+  padding: 80px 0;
+}
+
+.stat-box {
+  text-align: center;
+  padding: 2rem;
+}
+
+.stat-number {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: #0ea5e9;
+}
+
+.stat-label {
+  font-size: 1.1rem;
+  color: #64748b;
+  font-weight: 600;
+  margin-top: 0.5rem;
+}
+
+/* Features Section */
+.section-padding {
+  padding: 100px 0;
+}
+
+.section-title {
+  font-size: 3rem;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 1rem;
+  color: #0c4a6e;
+}
+
+.section-subtitle {
+  text-align: center;
+  font-size: 1.2rem;
+  color: #64748b;
+  margin-bottom: 4rem;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.feature-card {
+  background: white;
+  border: none;
+  border-radius: 20px;
+  padding: 3rem 2rem;
+  height: 100%;
+  transition: all 0.4s ease;
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.1);
+  position: relative;
+  overflow: hidden;
+}
+
+.feature-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 5px;
+  background: linear-gradient(90deg, #0ea5e9 0%, #38bdf8 100%);
+  transform: scaleX(0);
+  transition: transform 0.4s ease;
+}
+
+.feature-card:hover::before {
+  transform: scaleX(1);
+}
+
+.feature-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 50px rgba(14, 165, 233, 0.2);
+}
+
+.feature-icon {
+  font-size: 3.5rem;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+.feature-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: #0c4a6e;
+  margin-bottom: 1rem;
+}
+
+.feature-description {
+  color: #475569;
+  font-size: 1.05rem;
+  line-height: 1.7;
+}
+
+/* Process Section */
+.process-card {
+  text-align: center;
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.process-number {
+  width: 80px;
+  height: 80px;
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  font-weight: 800;
+  margin: 0 auto 1.5rem;
+  box-shadow: 0 10px 30px rgba(14, 165, 233, 0.4);
+  border: 2px solid #0ea5e9;
+}
+
+.process-card:hover .process-number {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* CTA Section */
+.cta-section {
+  background: linear-gradient(135deg, #0ea5e9 0%, #0284c7 100%);
+  color: white;
+  padding: 100px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.cta-section::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -10%;
+  width: 500px;
+  height: 500px;
+  background: rgba(255,255,255,0.1);
+  border-radius: 50%;
+}
+
+.cta-section::after {
+  content: '';
+  position: absolute;
+  bottom: -50%;
+  left: -10%;
+  width: 600px;
+  height: 600px;
+  background: rgba(255,255,255,0.05);
+  border-radius: 50%;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 1;
+}
+
+/* Footer */
+footer {
+  background: #0c4a6e;
+  color: white;
+  padding: 60px 0 30px;
+  border-top: 1px solid rgba(56, 189, 248, 0.2);
+}
+
+.footer-title {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 1.5rem;
+}
+
+.footer-link {
+  color: rgba(255,255,255,0.7);
+  text-decoration: none;
+  display: block;
+  margin-bottom: 0.8rem;
+  transition: all 0.3s ease;
+}
+
+.footer-link:hover {
+  color: white;
+  padding-left: 5px;
+}
+
+/* Construction Badge */
+.construction-badge {
+  display: inline-block;
+  background: #fbbf24;
+  color: #92400e;
+  padding: 0.3rem 0.8rem;
+  border-radius: 5px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  margin-left: 0.5rem;
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 2.2rem;
+  }
+  
+  .hero-subtitle {
+    font-size: 1.1rem;
+  }
+  
+  .section-title {
+    font-size: 2rem;
+  }
+  
+  .hero-image {
+    margin-top: 3rem;
+  }
+}
+</style>
 </head>
-<body style="font-family:Arial;text-align:center;padding:60px">
-  <h1>Combine</h1>
-  <p>A SaaS platform to create and host websites easily.</p>
+<body>
 
-  <h3>Pricing</h3>
-  <p>₹5 / month (subscription-based)</p>
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light">
+  <div class="container">
+    <a class="navbar-brand" href="#home">COMBINE</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar" style="background: white;">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="mainNavbar">
+      <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <li class="nav-item"><a class="nav-link" href="#features">Features</a></li>
+        <li class="nav-item"><a class="nav-link" href="#process">How It Works</a></li>
+        <li class="nav-item"><a class="nav-link" href="#pricing">Pricing</a></li>
+        <li class="nav-item"><a class="nav-link" href="#about">About</a></li>
+        <li class="nav-item"><a class="nav-link" href="#contact">Contact</a></li>
+        <li class="nav-item">
+          <a class="nav-link btn-account" href="#" onclick="showConstruction('Dashboard')">
+            My Account<span class="construction-badge">SOON</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
 
-  <p><strong>Status:</strong> Payment integration in progress.</p>
+<!-- Hero Section -->
+<section class="hero-section" id="home">
+  <div class="container">
+    <div class="row align-items-center">
+      <div class="col-lg-6 hero-content">
+        <h1 class="hero-title">Create Websites In Minutes, Live In Seconds</h1>
+        <p class="hero-subtitle">No coding knowledge? No design skills? No problem. Build stunning websites by simply selecting templates and customizing them to your needs.</p>
+        <a class="btn btn-primary-custom" href="#" onclick="showConstruction('Editor')">Start Building Free</a>
+      </div>
+      <div class="col-lg-6 text-center">
+        <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=600&h=500&fit=crop" alt="Web Building" class="hero-image" style="max-width: 90%; border-radius: 20px; box-shadow: 0 20px 60px rgba(0,0,0,0.3);">
+      </div>
+    </div>
+  </div>
+</section>
 
-  <p>Contact: combine0077@gmail.com</p>
+<!-- Stats Section -->
+<section class="stats-section">
+  <div class="container">
+    <div class="row">
+      <div class="col-md-3 col-6">
+        <div class="stat-box">
+          <div class="stat-number">2K+</div>
+          <div class="stat-label">Websites Created</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-box">
+          <div class="stat-number">1L</div>
+          <div class="stat-label">User Capacity</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-box">
+          <div class="stat-number">99.9%</div>
+          <div class="stat-label">Uptime</div>
+        </div>
+      </div>
+      <div class="col-md-3 col-6">
+        <div class="stat-box">
+          <div class="stat-number">24/7</div>
+          <div class="stat-label">Support</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
 
-  <center>
-    <img src="./Screenshot from 2025-12-18 04-52-43.png">
-  </center>
-</body>
-</html>
+<!-- Features Section -->
+<section class="section-padding" id="features">
+  <div class="container">
+    <h2 class="section-title">Why Choose Combine?</h2>
+    <p class="section-subtitle">Everything you need to bring your ideas to life on the web</p>
+    
+    <div class="row g-4">
+      <div class="col-lg-4 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon">🚀</div>
+          <h3 class="feature-title">Lightning Fast Deployment</h3>
+          <p class="feature-description">Launch your website in seconds with our optimized hosting infrastructure. No waiting, no hassles.</p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon">🎨</div>
+          <h3 class="feature-title">Beautiful UI</h3>
+          <p class="feature-description">Choose from hundreds of professionally designed UI Elements that work perfectly on all devices.</p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon">🌐</div>
+          <h3 class="feature-title">Free Domain & Hosting</h3>
+          <p class="feature-description">Get your own GitHub domain and reliable hosting included. No hidden fees or extra charges.</p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon">⚡</div>
+          <h3 class="feature-title">No Code Required</h3>
+          <p class="feature-description">Build professional websites without writing a single line of code. Visual editor makes it simple.</p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon">♾️</div>
+          <h3 class="feature-title">Unlimited Websites</h3>
+          <p class="feature-description">Create as many websites as you want. No limits on your creativity and projects.</p>
+        </div>
+      </div>
+      
+      <div class="col-lg-4 col-md-6">
+        <div class="feature-card">
+          <div class="feature-icon">🔒</div>
+          <h3 class="feature-title">Secure & Reliable</h3>
+          <p class="feature-description">Enterprise-grade security with SSL certificates and automatic backups included.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- How It Works Section -->
+<section class="section-padding" style="background: var(--light-bg);" id="process">
+  <div class="container">
+    <h2 class="section-title">How It Works</h2>
+    <p class="section-subtitle">Get your website live in just three simple steps</p>
+    
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="process-card">
+          <div class="process-number">1</div>
+          <h3 class="feature-title">Choose UI Element</h3>
+          <p class="feature-description">Browse our collection of stunning UI Elements and select the one that fits your vision.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="process-card">
+          <div class="process-number">2</div>
+          <h3 class="feature-title">Customize</h3>
+          <p class="feature-description">Add your content, images, and branding with our intuitive drag-and-drop editor.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="process-card">
+          <div class="process-number">3</div>
+          <h3 class="feature-title">Publish</h3>
+          <p class="feature-description">Click publish and your website goes live instantly with your custom domain.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Pricing Section -->
+<section class="section-padding" id="pricing">
+  <div class="container">
+    <h2 class="section-title">Simple Pricing</h2>
+    <p class="section-subtitle">Only ₹5 per month - Limited offer for first 1L users</p>
+    
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="feature-card" style="text-align: center;">
+          <div style="font-size: 4rem; font-weight: 900; color: #0ea5e9; margin-bottom: 1rem;">
+            ₹5<span style="font-size: 2rem; color: #64748b;">/month</span>
+          </div>
+          <p style="color: #64748b; margin-bottom: 2rem;">⚡ Limited Offer – Only for First 1L Users</p>
+          
+          <div style="text-align: left; max-width: 500px; margin: 0 auto 2rem;">
+            <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 900;">✓</span>
+              <span>Free GitHub Pages subdomain</span>
+            </div>
+            <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 900;">✓</span>
+              <span>GitHub-based hosting (fast & secure)</span>
+            </div>
+            <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 900;">✓</span>
+              <span>Your websites in your GitHub</span>
+            </div>
+            <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 900;">✓</span>
+              <span>Unlimited website creation</span>
+            </div>
+            <div style="margin-bottom: 1rem; display: flex; align-items: center; gap: 0.5rem;">
+              <span style="color: #10b981; font-weight: 900;">✓</span>
+              <span>Free HTTPS (SSL via GitHub Pages)</span>
+            </div>
+          </div>
+          
+          <a class="btn btn-primary-custom" href="#" onclick="showConstruction('Payment')">Get Started Now</a>
+          
+          <div style="margin-top: 2rem; display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; font-size: 0.9rem; color: #64748b;">
+            <span>🔒 Secure payments via Razorpay</span>
+            <span>🚀 Built for students</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- About Section -->
+<section class="section-padding" style="background: var(--light-bg);" id="about">
+  <div class="container">
+    <h2 class="section-title">About Combine</h2>
+    <p class="section-subtitle">Our mission is to make web development accessible to everyone</p>
+    
+    <div class="row g-4">
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">💡</div>
+          <h3 class="feature-title">Our Mission</h3>
+          <p class="feature-description">Making web creation accessible, fast, and enjoyable for everyone, regardless of technical background.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">🎯</div>
+          <h3 class="feature-title">Our Vision</h3>
+          <p class="feature-description">A world where anyone can bring their ideas to life on the web without barriers.</p>
+        </div>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="feature-card">
+          <div class="feature-icon">❤️</div>
+          <h3 class="feature-title">Built for You</h3>
+          <p class="feature-description">Designed specifically for students and creators who want to build without limits.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="section-padding" id="contact">
+  <div class="container">
+    <h2 class="section-title">Get in Touch</h2>
+    <p class="section-subtitle">Have questions? We'd love to hear from you</p>
+    
+    <div class="row">
+      <div class="col-lg-8 mx-auto">
+        <div class="feature-card">
+          <form onsubmit="handleContact(event)">
+            <div class="row">
+              <div class="col-md-6 mb-3">
+                <label style="font-weight: 600; color: #0c4a6e; margin-bottom: 0.5rem;">Full Name</label>
+                <input type="text" class="form-control" placeholder="Your name" required style="border: 2px solid #e0f2fe; border-radius: 10px; padding: 0.8rem;">
+              </div>
+              
+              <div class="col-md-6 mb-3">
+                <label style="font-weight: 600; color: #0c4a6e; margin-bottom: 0.5rem;">Email</label>
+                <input type="email" class="form-control" placeholder="your@email.com" required style="border: 2px solid #e0f2fe; border-radius: 10px; padding: 0.8rem;">
+              </div>
+            </div>
+            
+            <div class="mb-3">
+              <label style="font-weight: 600; color: #0c4a6e; margin-bottom: 0.5rem;">Subject</label>
+              <select class="form-select" required style="border: 2px solid #e0f2fe; border-radius: 10px; padding: 0.8rem;">
+                <option value="">Choose a subject</option>
+                <option value="general">General Inquiry</option>
+                <option value="technical">Technical Support</option>
+                <option value="billing">Billing Question</option>
+              </select>
+            </div>
+            
+            <div class="mb-3">
+              <label style="font-weight: 600; color: #0c4a6e; margin-bottom: 0.5rem;">Message</label>
+              <textarea class="form-control" rows="5" placeholder="Your message..." required style="border: 2px solid #e0f2fe; border-radius: 10px; padding: 0.8rem;"></textarea>
+            </div>
+            
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary-custom">Send Message</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    
+    <div class="row mt-5">
+      <div class="col-md-4 text-center mb-4">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">📧</div>
+        <h4 style="font-weight: 700; color: #0c4a6e;">Email</h4>
+        <a href="mailto:support@combine.com" style="color: #0ea5e9; text-decoration: none;">support@combine.com</a>
+      </div>
+      
+      <div class="col-md-4 text-center mb-4">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">💬</div>
+        <h4 style="font-weight: 700; color: #0c4a6e;">Live Chat</h4>
+        <a href="#" onclick="showConstruction('Chat')" style="color: #0ea5e9; text-decoration: none;">Start chat</a>
+      </div>
+      
+      <div class="col-md-4 text-center mb-4">
+        <div style="font-size: 2.5rem; margin-bottom: 1rem;">🌐</div>
+        <h4 style="font-weight: 700; color: #0c4a6e;">Community</h4>
+        <a href="#" onclick="showConstruction('Discord')" style="color: #0ea5e9; text-decoration: none;">Join Discord</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Section -->
+<section class="cta-section">
+  <div class="container cta-content">
+    <div class="row justify-content-center">
+      <div class="col-lg-8 text-center">
+        <h2 class="hero-title" style="font-size: 2.8rem;">Ready to Build Your Dream Website?</h2>
+        <p class="hero-subtitle">Join thousands of creators bringing their ideas to life with Combine</p>
+        <a class="btn btn-primary-custom" href="#" onclick="showConstruction('Get Started')">Get Started Now</a>
+        <p style="margin-top: 1.5rem; opacity: 0.9;">No credit card required • ₹5/month • Limited offer</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Footer -->
+<footer>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-4 mb-4">
+        <h3 class="footer-title">COMBINE</h3>
+        <p style="color: rgba(255,255,255,0.7);">Empowering everyone to create beautiful websites without code.</p>
+      </div>
+      
+      <div class="col-lg-2 col-6 mb-4">
+        <h5 class="footer-title">Product</h5>
+        <a href="#features" class="footer-link">Features</a>
+        <a href="#pricing" class="footer-link">Pricing</a>
+        <a href="#" onclick="showConstruction('Editor')" class="footer-link">Editor</a>
+      </div>
+      
+      <div class="col-lg-2 col-6 mb-4">
+        <h5 class="footer-title">Company</h5>
+        <a href="#about" class="footer-link">About</a>
+        <a href="#contact" class="footer-link">Contact</a>
+      </div>
+      
+      <div class="col-lg-2 col-6 mb-4">
+        <h5 class="footer-title">Resources</h5>
+        <a href="#" onclick="showConstruction('Help')" class="footer-link">Help Center</a>
+        <a href="#" onclick="showConstruction('Tutorials')" class="footer-link">Tutorials</a>
+        <a href="#" onclick="showConstruction('Community')" class="footer-link">Community</a>
+      </div>
+    </div>
+    
+    <hr style="border-color: rgba(255,255,255,0.1); margin: 3rem 0 2rem;">
+    
+    <div class="text-center" style="color: rgba(255,255,255,0.6);">
+      <p>&copy; 2025 Combine. All rights reserved. Built with ❤️ for creators worldwide.</p>
+    </div>
+  </div>
+</footer>
